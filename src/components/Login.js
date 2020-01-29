@@ -1,40 +1,36 @@
-import React, {useState, useEffect} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import './component.css'
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './component.css';
+import { Button, InputGroup, Input } from 'reactstrap';
 
-
-const Login = props =>{
-const {name, link} = props
-return (
-   <div>
-      <div className="card col-sm-4">
-          <div className="card__container">
-              <div>
-                <h1 className="card__title">Login</h1>
-              </div>
-              
-              <div className="row">
-                <input type="text" className="add__input" placeholder="Username" />
-              </div>
-              <div className="row">
-                  <input type="password" className="add__input" placeholder="Password" />
-              </div><br/>
-              <div>
-                 <button className="add__btn btn btn-success" onClick>Sign Up</button>
-              </div><br/>
-              <div>
-                 <a className="link" href="">Forgot password</a>
-              </div><br/>
-              <div>
-                 <a className="link" href="">Create new account</a>
-              </div><br/>
-
-            
-          </div>
+const Login = () => (
+  <div>
+    <div className="card col-sm-4">
+      <div className="card__container">
+        <div>
+          <h1 className="card__title">Login</h1>
+        </div>
+        <InputGroup size="sm">
+          <Input placeholder="username" />
+        </InputGroup>
+        <br />
+        <InputGroup size="sm">
+          <Input placeholder="password" type="password" />
+        </InputGroup>
+        <br />
+        <Button className="add__btn" color="success" size="sm">Login</Button>
+        <br />
+        <div>
+          <a className="link" href="youtube.com">Forgot password</a>
+        </div>
+        <br />
+        <div>
+          <a className="link" href="youtube.com">Create new account</a>
+        </div>
+        <br />
       </div>
+    </div>
   </div>
-  );
-
-}
+);
 
 export default Login;
