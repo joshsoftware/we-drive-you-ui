@@ -9,10 +9,10 @@ function UserSignup() {
   const [EmailId, setEmailId] = useState('');
   const [ContactNo, setContactNo] = useState('');
   const [Password, setPassword] = useState('');
-  let User = {};
+
 
   const submit = () => {
-    User = {
+    const user = {
       first_name: FirstName,
       last_name: LastName,
       email_id: EmailId,
@@ -22,13 +22,13 @@ function UserSignup() {
     };
     // console.log(User);
 
-    fetch('http://localhost:3000/users', {
+    fetch('http://localhost:4000/users', {
       method: 'POST',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(User),
+      body: JSON.stringify(user),
     }).then((response) => { console.log(response); });
   };
 
