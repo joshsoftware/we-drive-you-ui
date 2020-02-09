@@ -4,20 +4,20 @@ import './component.css';
 import { Button, InputGroup, Input } from 'reactstrap';
 
 function UserSignup() {
-  const [FirstName, setFirstName] = useState('');
-  const [LastName, setLastName] = useState('');
-  const [EmailId, setEmailId] = useState('');
-  const [ContactNo, setContactNo] = useState('');
-  const [Password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [emailId, setEmailId] = useState('');
+  const [contactNo, setContactNo] = useState('');
+  const [password, setPassword] = useState('');
 
 
   const submit = () => {
     const user = {
-      first_name: FirstName,
-      last_name: LastName,
-      email_id: EmailId,
-      contact_no: ContactNo,
-      password: Password,
+      first_name: firstName,
+      last_name: lastName,
+      email_id: emailId,
+      contact_no: contactNo,
+      password,
       role_id: 2,
     };
     // console.log(User);
@@ -46,7 +46,7 @@ function UserSignup() {
                 placeholder="first name"
                 type="text"
                 name="first_name"
-                value={FirstName}
+                value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </InputGroup>
@@ -56,7 +56,7 @@ function UserSignup() {
                 placeholder="last name"
                 type="text"
                 name="last_name"
-                value={LastName}
+                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </InputGroup>
@@ -68,7 +68,7 @@ function UserSignup() {
                 placeholder="email"
                 type="email"
                 name="email_id"
-                value={EmailId}
+                value={emailId}
                 onChange={(e) => setEmailId(e.target.value)}
               />
             </InputGroup>
@@ -78,7 +78,7 @@ function UserSignup() {
                 placeholder="contact no"
                 type="number"
                 name="contact_no"
-                value={ContactNo}
+                value={contactNo}
                 onChange={(e) => setContactNo(e.target.value)}
               />
             </InputGroup>
@@ -125,7 +125,7 @@ function UserSignup() {
                 placeholder="password"
                 type="password"
                 name="password"
-                value={Password}
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </InputGroup>
