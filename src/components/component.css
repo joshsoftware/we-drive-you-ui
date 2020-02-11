@@ -3,6 +3,11 @@
    margin: 50px 100px;
 }
 */
+
+.text_box_width {
+  width: 150px;
+}
+
 .link {
   display: block;
   font-size: 14px;
