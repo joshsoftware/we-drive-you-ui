@@ -13,7 +13,6 @@ function Add_Cab() {
       cab_number: cabNumber,
       cab_capacity: cabCapacity,
     };
-    debugger
     fetch('http://localhost:4000/users', {
       method: 'POST',
       headers: {
@@ -33,8 +32,8 @@ function Add_Cab() {
           </div>
           <br />
           <div className="row">
-            <InputGroup className="col-md-6">
-              <Label for="exampleCabNumber">Cab Number : </Label>&nbsp;&nbsp;&nbsp;
+            <InputGroup style={{ width:"150px" }} className="col-md-8">
+              <Label style={{ width:"150px" }} for="exampleCabNumber">Cab Number : </Label>
               <Input
                 placeholder="Enter vehicle Number"
                 type="text"
@@ -47,8 +46,8 @@ function Add_Cab() {
             <br />
 
           <div className="row">
-            <InputGroup className="col-md-6">
-              <Label for="exampleCabNumber">Cab Capacity : </Label>&nbsp;&nbsp;&nbsp;
+            <InputGroup style={{ width:"150px" }} className="col-md-8">
+              <Label style={{ width:"150px" }} for="exampleCabNumber">Cab Capacity : </Label>
               <Input
                 placeholder="Enter Vehicle Capacity"
                 type="text"
@@ -60,7 +59,7 @@ function Add_Cab() {
           </div>
           <br />
           <br />
-          <Button className="add__btn" color="success" size="sm" onClick={submit}>Add</Button>
+          <Button className="add__btn" color="success" size="sm" onClick={submit}>Add Cab</Button>
           <br />
         </div>
       </div>
