@@ -50,7 +50,6 @@ function AddRide() {
     updatedRoutes[e.target.dataset.idx][e.target.dataset.field] = e.target.value;
     if (e.target.dataset.field === "location")
     {
-      //updatedRoutes[e.target.dataset.idx][e.target['sequence_id']] = e.target.dataset.idx + 1;
       updatedRoutes[e.target.dataset.idx]['sequence_id'] = parseInt(e.target.dataset.idx) + 1 ;
     }
     setCabRoute(updatedRoutes);
@@ -73,9 +72,7 @@ function AddRide() {
       body: JSON.stringify(rides),
     }).then((response) => { console.log(); });
   };
-
-
-
+  
   // CustomStyle for Select Box Width
   const customStyles = {
   container: provided => ({
