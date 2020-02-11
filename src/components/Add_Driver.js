@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { Button, InputGroup, Input} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './component.css';
-import { Button, InputGroup, Input} from 'reactstrap';
 
 function Add_Driver() {
   const [driverFirstName, setDriverFirstName] = useState('');
@@ -94,7 +94,6 @@ function Add_Driver() {
                 onChange={(e) => setDriverEmailId(e.target.value)}
               />
             </InputGroup>
-
           </div>
           <br />
 
@@ -108,7 +107,6 @@ function Add_Driver() {
                 onChange={(e) => setDriverLicenseNo(e.target.value)}
               />
             </InputGroup>
-
           </div>
           <br />
           <Button className="add__btn" color="success" size="sm" onClick={submit}>Add</Button>
