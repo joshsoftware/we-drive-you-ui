@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import {Button, InputGroup,Label, Input} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './component.css';
-import {Button, InputGroup,Label, Input} from 'reactstrap';
 
 function Add_Cab() {
   const [cabNumber, setCabNumber] = useState('');
@@ -32,8 +32,8 @@ function Add_Cab() {
           </div>
           <br />
           <div className="row">
-            <InputGroup style={{ width:"150px" }} className="col-md-8">
-              <Label style={{ width:"150px" }} for="exampleCabNumber">Cab Number : </Label>
+            <InputGroup className="col-md-8">
+              <Label className="text_box_width" for="exampleCabNumber">Cab Number : </Label>
               <Input
                 placeholder="Enter vehicle Number"
                 type="text"
@@ -46,8 +46,8 @@ function Add_Cab() {
             <br />
 
           <div className="row">
-            <InputGroup style={{ width:"150px" }} className="col-md-8">
-              <Label style={{ width:"150px" }} for="exampleCabNumber">Cab Capacity : </Label>
+            <InputGroup className="col-md-8">
+              <Label className="text_box_width" for="exampleCabNumber">Cab Capacity : </Label>
               <Input
                 placeholder="Enter Vehicle Capacity"
                 type="text"
