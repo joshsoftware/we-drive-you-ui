@@ -9,17 +9,16 @@ const AddLocation = ({ idx, cabRoute, handleRouteChange }) => {
    return(
      <div className="row">
       <div className="col-sm-6" align="left" key={`location-${idx}`}>
-       <Label style={{ width:"120px" }} for="enterLocation">{`Location No : ${idx + 1}`}</Label>
-       <InputGroup style={{ width:"150px" }}>
+       <Label className="text_box_width" for="enterLocation">{`Location No : ${idx + 1}`}</Label>
+       <InputGroup className="text_box_width">
          <Input
-          style={{ width:"150px" }}
+          className="text_box_width"
           placeholder="Location"
           type="text"
           name={locationId}
           data-idx={idx}
           data-field='location'
           id={locationId}
-          className="location"
           defaultValue={cabRoute[idx].location}
           onChange={handleRouteChange}
          />
@@ -27,16 +26,15 @@ const AddLocation = ({ idx, cabRoute, handleRouteChange }) => {
      </div>
      <br />
      <div className="col-sm-6" align="right" key={`credit-${idx}`}>
-       <Label style={{ width:"150px" }} for="enterCredit">Associated Credit</Label>
-       <InputGroup style={{ width:"150px" }}>
+       <Label className="text_box_width" for="enterCredit">Associated Credit</Label>
+       <InputGroup className="text_box_width">
        <Input
-         style={{ width:"150px" }}
+         className="text_box_width"
          placeholder="Credit"
          type="text"
          name={creditId}
          data-idx={idx}
          id={creditId}
-         className="credit"
          data-field='credit'
          defaultValue={cabRoute[idx].credit}
          onChange={handleRouteChange}

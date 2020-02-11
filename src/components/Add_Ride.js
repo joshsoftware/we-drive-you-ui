@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import {Button, InputGroup, Label, Input} from 'reactstrap';
+import AddLocation from './Add_Location';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './component.css';
-import AddLocation from './Add_Location';
-import {Button, InputGroup, Label, Input} from 'reactstrap';
-
-
 
 function AddRide() {
-
   const emptyCabRoute = { location: '', credit: '', sequence_id: '' };
-  var [cabNumberList, setCabNumberList] = useState([]);
+  const [cabNumberList, setCabNumberList] = useState([]);
   const [cabNumber, setCabNumber] = useState({});
   const [timeSlot, setTimeSlot] = useState('');
   const [cabRoute, setCabRoute] = useState([{...emptyCabRoute}]);
-  
-  cabNumberList = [
-    { cab_id: 1, cab_number: 'MH15MB1234', cab_capacity: 4 },
-    { cab_id: 2, cab_number: 'MH14MN7896', cab_capacity: 3},
-    { cab_id: 3, cab_number: 'MH15MB7456', cab_capacity: 2}
-  ];
-
   const options = cabNumberList.map((cab_no) => { return {value: [cab_no.cab_id, cab_no.cab_capacity] , label: cab_no.cab_number }});
   
-
   const addLocation = () => {
     setCabRoute([...cabRoute,{...emptyCabRoute}]);
   }
 
   //Hook For Fetching Data Into CabNumberList
   useEffect(() => {
-    fetch('http://192.168.1.80:3000/rides',{
+    fetch('http://192.168.1.80:3000/cab',{
       method: 'GET',
       headers: {
         'Accept': 'application/cab-tab.com; version=1'
@@ -94,6 +83,7 @@ function AddRide() {
     width: 300
   })
   };
+
   return (
     <div>
       <div className="card col-sm-7">
@@ -103,8 +93,8 @@ function AddRide() {
           </div>
           <br />
           <div className="row" >
-            <Label style={{ width:"150px" }} for="exampleCabNumber">Vehicle Number : </Label>
-            <InputGroup style={{ width:"150px" }} className="col-sm-6">
+            <Label className="text_box_width" for="exampleCabNumber">Vehicle Number : </Label>
+            <InputGroup className="text_box_width" className="col-sm-6">
               <Select placeholder = {<div>Select Vehicle</div>}
                styles={customStyles}
                value={cabNumber}
@@ -116,8 +106,8 @@ function AddRide() {
           <br />
 
           <div className="row">
-            <Label  style={{ width:"150px" }} for="exampleTimeSlot">Time Slot :  </Label>
-            <InputGroup style={{ width:"150px" }} className="col-sm-6">
+            <Label  className="text_box_width" for="exampleTimeSlot">Time Slot :  </Label>
+            <InputGroup className="text_box_width" className="col-sm-6">
               <Input
                 placeholder="Enter Time Slot"
                 type="time"
