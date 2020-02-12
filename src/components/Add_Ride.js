@@ -11,33 +11,31 @@ function AddRide() {
   const [cabNumber, setCabNumber] = useState({});
   const [timeSlot, setTimeSlot] = useState('');
   const [cabRoute, setCabRoute] = useState([{...emptyCabRoute}]);
-  const options = cabNumberList.map((cab_no) => { return {value: [cab_no.cab_id, cab_no.cab_capacity] , label: cab_no.cab_number }});
-  
+  const options = cabNumberList.map((cab_no) => { return {value: [cab_no.id, cab_no.capacity] , label: cab_no.vehicle_number+" [ Capacity : "+cab_no.capacity+" ]" }});
+
   const addLocation = () => {
     setCabRoute([...cabRoute,{...emptyCabRoute}]);
   }
-
+  // debugger
   //Hook For Fetching Data Into CabNumberList
   useEffect(() => {
-    fetch('http://192.168.1.80:3000/cab',{
+    fetch('http://172.60.1.137:3000/cabs',{
       method: 'GET',
       headers: {
         'Accept': 'application/cab-tab.com; version=1'
       }
     })
     .then((jsonResponse) => {
-    console.log(jsonResponse);
     return jsonResponse.json();
     })
     .then((parsedResponse) => {
-    console.log({parsedResponse});
-    setCabNumberList(parsedResponse);
+    setCabNumberList([...parsedResponse.data]);
     })
     .catch((error)=>{
     console.error("Error");
     })
   }, []);
-
+  
   //Handler for Managing Chnages Select DropDown
   const handleCabChange = (selectedOption) => {
      setCabNumber(selectedOption)
@@ -63,7 +61,7 @@ function AddRide() {
       routes: cabRoute,
       available_seats: cabNumber.value[1],
     };
-    fetch('http://192.168.1.80:3000/rides', {
+    fetch('http://172.60.1.137:3000/cabs', {
       method: 'POST',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
