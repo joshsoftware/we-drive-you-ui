@@ -1,89 +1,101 @@
-import React, { useState } from 'react';
-import {Button, InputGroup,Label, Input} from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './component.css';
+import React, { useState } from "react";
+import { Card, Form, Row, Col, Button, Label, Input } from "reactstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./component.css";
 
 function Add_Cab() {
-  const [cabNumber, setCabNumber] = useState('');
-  const [cabMinPassengerRequired, setCabMinPassengerRequired] = useState('');
-  const [cabCapacity, setCabCapacity] = useState('');
+  const emptyCabElements = {
+    cab_no: "",
+    min_passenger_req: "",
+    cab_capacity: ""
+  };
+  const [cabElements, setCabElements] = useState({ ...emptyCabElements });
 
-  // Submit Event for Add Cab Button
+  const handleCabElementChange = evt => {
+    const value = evt.target.value;
+    setCabElements({ ...cabElements, [evt.target.name]: value });
+  };
+
+  //Submit Event for Add Cab Button
   const submit = () => {
     const cab = {
-      vehicle_number: cabNumber,
-      capacity: cabCapacity,
-      min_passengers: cabMinPassengerRequired,
+      vehicle_number: cabElements.cab_no,
+      capacity: cabElements.cab_capacity,
+      min_passengers: cabElements.min_passenger_req
     };
     debugger
-    fetch('http://172.60.1.137:3000/cabs', {
-      method: 'POST',
+    fetch("http://172.60.1.137:3000/cabs", {
+      method: "POST",
       headers: {
-        Accept: 'application/cab-tab.com; version=1',
-        'Content-Type': 'application/json',
+        Accept: "application/cab-tab.com; version=1",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(cab),
-    }).then((response) => { console.log(response); });
+      body: JSON.stringify(cab)
+    }).then(response => {
+      console.log(response);
+    });
   };
 
   return (
-    <div>
-      <div className="card col-sm-7">
-        <div className="card__container">
-          <div>
-            <h1 className="card__title ">Add Cab to Organization</h1>
-          </div>
-          <br />
-          <div className="row ">
-            <InputGroup className="row-md-8 offset-md-2">
-              <Label className="col-md-4" for="exampleCabNumber">Cab Number : </Label>
-              <Input
-                className="col-md-6"
-                placeholder="Enter vehicle Number"
-                type="text"
-                name="cab_number"
-                value={cabNumber}
-                onChange={(e) => setCabNumber(e.target.value)}
-              />
-            </InputGroup>
-            </div>
-            <br />
-
-          <div className="row">
-            <InputGroup className="row-md-8 offset-md-2">
-              <Label className="col-md-4" for="exampleCabNumber">Cab Capacity : </Label>
-              <Input
-                className="col-md-6"
-                placeholder="Enter Vehicle Capacity"
-                type="text"
-                name="cab_capacity"
-                value={cabCapacity}
-                onChange={(e) => setCabCapacity(e.target.value)}
-              />
-            </InputGroup>
-          </div>
-          <br />
-          <div  className="row">
-            <InputGroup className="row-md-8 offset-md-2">
-            <Label className="col-md-4" for="exampleMinimumPassengerRequired">Minimum Passenger :</Label>
-              <Input
-                className="col-md-6"
-                placeholder="Enter Minimum Passenger Required"
-                type="text"
-                name="cab_capacity"
-                value={cabMinPassengerRequired}
-                onChange={(e) => setCabMinPassengerRequired(e.target.value)}
-              />
-            </InputGroup>
-          </div>
-          <br />
-          <br />
-          <Button className="btn-lg col-md-4 offset-md-4" color="success" size="sm" onClick={submit}>Add Cab</Button>
-          <br />
-        </div>
-      </div>
-    </div>
- );
+    <Card className="App" style={{ width: "50%" }}>
+      <Row>
+        <Col sm="12" md={{ size: 12 }}>
+          <h2 style={{ color: "blue" }}>Add Cab To Organization</h2>
+        </Col>
+      </Row>
+      <br />
+      <Form className="form">
+        <Row>
+          <Col md={4}>
+            <Label>Vehicle Number :</Label>
+          </Col>
+          <Col sm="12" md={{ size: 6, offset: 2 }}>
+            <Input
+              type="text"
+              name="cab_no"
+              value={cabElements.cab_no}
+              onChange={handleCabElementChange}
+              placeholder="Enter Cab Number"
+            />
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col md={4}>
+            <Label>Vehicle Capacity :</Label>
+          </Col>
+          <Col sm="12" md={{ size: 6, offset: 2 }}>
+            <Input
+              type="number"
+              name="cab_capacity"
+              id="cab_capacity"
+              onChange={handleCabElementChange}
+              placeholder="Enter Cab Capacity"
+            />
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col md={6}>
+            <Label>Minimum Passenger Required :</Label>
+          </Col>
+          <Col md={6}>
+            <Input
+              type="number"
+              name="min_passenger_req"
+              value={cabElements.min_passenger_req}
+              onChange={handleCabElementChange}
+              placeholder="Enter Minimum Expectancy"
+            />
+          </Col>
+        </Row>
+        <br />
+        <Button color="success" onClick={submit}>
+          Add Cab
+        </Button>
+      </Form>
+    </Card>
+  );
 }
 
 export default Add_Cab;
