@@ -1,119 +1,171 @@
-import React, { useState } from 'react';
-import { Button, InputGroup, Input} from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './component.css';
+import React, { useState } from "react";
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupText,
+	Card,
+	Form,
+	Row,
+	Col,
+	Button,
+	Input
+} from "reactstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./component.css";
 
 function Add_Driver() {
-  const [driverFirstName, setDriverFirstName] = useState('');
-  const [driverLastName, setDriverLastName] = useState('');
-  const [driverEmailId, setDriverEmailId] = useState('');
-  const [driverContactNo1, setDriverContactNo1] = useState('');
-  const [driverContactNo2, setDriverContactNo2] = useState('');
-  const [driverLicenseNo, setDriverLicenseNo] = useState('');
+	const emptyDriverElement = {
+		first_name: "",
+		last_name: "",
+		email_id: "",
+		contact_no_1: "",
+		contact_no_2: "",
+		license_no: ""
+	};
 
-  // Submit Event for Add Driver Button
-  const submit = () => {
-    const user = {
-      first_name: driverFirstName,
-      last_name: driverLastName,
-      email_id: driverEmailId,
-      contact_no_1: driverContactNo1,
-      contact_no_2: driverContactNo2,
-      license_no: driverLicenseNo,
-    };
-    fetch('http://localhost:4000/users', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/cab-tab.com; version=1',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    }).then((response) => { console.log(response); });
-  };
+	const [driverElements, setDriverElements] = useState({
+		...emptyDriverElement
+	});
 
-  return (
-    <div>
-      <div className="card col-sm-7">
-        <div className="card__container">
-          <div>
-            <h1 className="card__title">Add Driver to Organization</h1>
-          </div>
-          <br />
-          <div className="row">
-            <InputGroup className="col-sm-6">
-              <Input
-                placeholder="Driver's First Name"
-                type="text"
-                name="driver_first_name"
-                value={driverFirstName}
-                onChange={(e) => setDriverFirstName(e.target.value)}
-              />
-            </InputGroup>
-            <br />
-            <InputGroup className="col-sm-6">
-              <Input
-                placeholder="Driver's Last Name"
-                type="text"
-                name="driver_last_name"
-                value={driverLastName}
-                onChange={(e) => setDriverLastName(e.target.value)}
-              />
-            </InputGroup>
-          </div>
-          <br />
+	const handleDriverElementChange = evt => {
+		const value = evt.target.value;
+		setDriverElements({ ...driverElements, [evt.target.name]: value });
+	};
 
-          <div className="row">
-            <InputGroup className="col-sm-6">
-              <Input
-                placeholder="Driver's Contact Number 1"
-                type="number"
-                name="driver_contact_1"
-                value={driverContactNo1}
-                onChange={(e) => setDriverContactNo1(e.target.value)}
-              />
-            </InputGroup>
-            <InputGroup className="col-sm-6">
-              <Input
-                placeholder="Driver's Contact Number 2"
-                type="number"
-                name="driver_contact_2"
-                value={driverContactNo2}
-                onChange={(e) => setDriverContactNo2(e.target.value)}
-              />
-            </InputGroup>
-          </div>
-          <br />
+	// Submit Event for Add Driver Button
+	const submit = () => {
+		const driver = {
+			first_name: driverElements.first_name,
+			last_name: driverElements.last_name,
+			email_id: driverElements.email_id,
+			contact_no_1: driverElements.contact_no_1,
+			contact_no_2: driverElements.contact_no_2,
+			license_no: driverElements.license_no
+		};
+		fetch("http://localhost:4000/users", {
+			method: "POST",
+			headers: {
+				Accept: "application/cab-tab.com; version=1",
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(driver)
+		}).then(response => {
+			console.log(response);
+		});
+	};
 
-          <div className="row">
-            <InputGroup className="col-sm-12">
-              <Input
-                placeholder="Driver's Email ID"
-                type="email"
-                name="driver_email_id"
-                value={driverEmailId}
-                onChange={(e) => setDriverEmailId(e.target.value)}
-              />
-            </InputGroup>
-          </div>
-          <br />
+	return (
+		<Card className="App" style={{ width: "50%" }}>
+			<Row>
+				<Col sm="12" md={{ size: 12 }}>
+					<h2 style={{ color: "blue" }}>Add Driver To Organization</h2>
+				</Col>
+			</Row>
+			<br />
+			<Form className="form">
+				<Row>
+					<Col md={6}>
+						<InputGroup>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText>First Name :</InputGroupText>
+							</InputGroupAddon>
+							<Input
+								type="text"
+								name="first_name"
+								value={driverElements.first_name}
+								onChange={handleDriverElementChange}
+								placeholder="Ex. Sagar"
+							/>
+						</InputGroup>
+					</Col>
 
-          <div className="row">
-            <InputGroup className="col-sm-12">
-              <Input
-                placeholder="Driver's License Number"
-                type="text"
-                name="driver_license_no"
-                value={driverLicenseNo}
-                onChange={(e) => setDriverLicenseNo(e.target.value)}
-              />
-            </InputGroup>
-          </div>
-          <br />
-          <Button className="add__btn" color="success" size="sm" onClick={submit}>Add</Button>
-          <br />
-        </div>
-      </div>
-    </div>
-  );
+					<Col md={6}>
+						<InputGroup>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText>Last Name :</InputGroupText>
+							</InputGroupAddon>
+							<Input
+								type="text"
+								name="last_name"
+								value={driverElements.last_name}
+								onChange={handleDriverElementChange}
+								placeholder="Ex. Sonwane"
+							/>
+						</InputGroup>
+					</Col>
+				</Row>
+				<br />
+				<Row>
+					<Col md={12}>
+						<InputGroup>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText>Email ID :</InputGroupText>
+							</InputGroupAddon>
+							<Input
+								type="email"
+								name="email_id"
+								value={driverElements.email_id}
+								onChange={handleDriverElementChange}
+								placeholder="Ex. sagarsonwane@gmail.com"
+							/>
+						</InputGroup>
+					</Col>
+				</Row>
+				<br />
+				<Row>
+					<Col md={6}>
+						<InputGroup>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText>Contact No. 1 :</InputGroupText>
+							</InputGroupAddon>
+							<Input
+								type="number"
+								name="contact_no_1"
+								value={driverElements.contact_no_1}
+								onChange={handleDriverElementChange}
+								placeholder=""
+							/>
+						</InputGroup>
+					</Col>
+
+					<Col md={6}>
+						<InputGroup>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText>Contact No. 2 :</InputGroupText>
+							</InputGroupAddon>
+							<Input
+								type="number"
+								name="contact_no_2"
+								value={driverElements.contact_no_2}
+								onChange={handleDriverElementChange}
+								placeholder=""
+							/>
+						</InputGroup>
+					</Col>
+				</Row>
+				<br />
+				<Row>
+					<Col md={12}>
+						<InputGroup>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText>License No :</InputGroupText>
+							</InputGroupAddon>
+							<Input
+								type="text"
+								name="license_no"
+								value={driverElements.license_no}
+								onChange={handleDriverElementChange}
+								placeholder=""
+							/>
+						</InputGroup>
+					</Col>
+				</Row>
+				<br />
+				<Button color="success" onClick={submit}>
+					Add Driver
+				</Button>
+			</Form>
+		</Card>
+	);
 }
 export default Add_Driver;
