@@ -7,8 +7,8 @@ const AddLocation = ({ idx, cabRoute, handleRouteChange }) => {
   const creditId = `credit-${idx}`;
 
    return(
-     <div className="row">
-      <div className="col-sm-6" align="left" key={`location-${idx}`}>
+     <div className="row row-md-6 offset-md-3">
+      <div className="col-md-4" align="left" key={`location-${idx}`}>
        <Label className="text_box_width" for="enterLocation">{`Location No : ${idx + 1}`}</Label>
        <InputGroup className="text_box_width">
          <Input
@@ -25,7 +25,7 @@ const AddLocation = ({ idx, cabRoute, handleRouteChange }) => {
        </InputGroup>
      </div>
      <br />
-     <div className="col-sm-6" align="right" key={`credit-${idx}`}>
+     <div className="col-sm-4" key={`credit-${idx}`}>
        <Label className="text_box_width" for="enterCredit">Associated Credit</Label>
        <InputGroup className="text_box_width">
        <Input
