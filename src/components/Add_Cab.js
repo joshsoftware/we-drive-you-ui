@@ -5,21 +5,24 @@ import './component.css';
 
 function Add_Cab() {
   const [cabNumber, setCabNumber] = useState('');
+  const [cabMinPassengerRequired, setCabMinPassengerRequired] = useState('');
   const [cabCapacity, setCabCapacity] = useState('');
 
   // Submit Event for Add Cab Button
   const submit = () => {
-    const user = {
-      cab_number: cabNumber,
-      cab_capacity: cabCapacity,
+    const cab = {
+      vehicle_number: cabNumber,
+      capacity: cabCapacity,
+      min_passengers: cabMinPassengerRequired,
     };
-    fetch('http://localhost:4000/users', {
+    debugger
+    fetch('http://172.60.1.137:3000/cabs', {
       method: 'POST',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify(cab),
     }).then((response) => { console.log(response); });
   };
 
@@ -28,13 +31,14 @@ function Add_Cab() {
       <div className="card col-sm-7">
         <div className="card__container">
           <div>
-            <h1 className="card__title">Add Cab to Organization</h1>
+            <h1 className="card__title ">Add Cab to Organization</h1>
           </div>
           <br />
-          <div className="row">
-            <InputGroup className="col-md-8">
-              <Label className="text_box_width" for="exampleCabNumber">Cab Number : </Label>
+          <div className="row ">
+            <InputGroup className="row-md-8 offset-md-2">
+              <Label className="col-md-4" for="exampleCabNumber">Cab Number : </Label>
               <Input
+                className="col-md-6"
                 placeholder="Enter vehicle Number"
                 type="text"
                 name="cab_number"
@@ -46,9 +50,10 @@ function Add_Cab() {
             <br />
 
           <div className="row">
-            <InputGroup className="col-md-8">
-              <Label className="text_box_width" for="exampleCabNumber">Cab Capacity : </Label>
+            <InputGroup className="row-md-8 offset-md-2">
+              <Label className="col-md-4" for="exampleCabNumber">Cab Capacity : </Label>
               <Input
+                className="col-md-6"
                 placeholder="Enter Vehicle Capacity"
                 type="text"
                 name="cab_capacity"
@@ -58,8 +63,22 @@ function Add_Cab() {
             </InputGroup>
           </div>
           <br />
+          <div  className="row">
+            <InputGroup className="row-md-8 offset-md-2">
+            <Label className="col-md-4" for="exampleMinimumPassengerRequired">Minimum Passenger :</Label>
+              <Input
+                className="col-md-6"
+                placeholder="Enter Minimum Passenger Required"
+                type="text"
+                name="cab_capacity"
+                value={cabMinPassengerRequired}
+                onChange={(e) => setCabMinPassengerRequired(e.target.value)}
+              />
+            </InputGroup>
+          </div>
           <br />
-          <Button className="add__btn" color="success" size="sm" onClick={submit}>Add Cab</Button>
+          <br />
+          <Button className="btn-lg col-md-4 offset-md-4" color="success" size="sm" onClick={submit}>Add Cab</Button>
           <br />
         </div>
       </div>
