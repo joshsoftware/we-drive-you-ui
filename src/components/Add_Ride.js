@@ -1,141 +1,156 @@
-import React, { useState, useEffect } from 'react';
-import {Button, InputGroup, Label, Input} from 'reactstrap';
-import AddLocation from './Add_Location';
-import Select from 'react-select';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './component.css';
+import React, { useState, useEffect } from "react";
+import { Card, Form, Row, Col, Button, Label, Input } from "reactstrap";
+import AddLocation from "./Add_Location";
+import Select from "react-select";
 
 function AddRide() {
-  const emptyCabRoute = { location: '', credit: '', sequence_id: '' };
-  const [cabNumberList, setCabNumberList] = useState([]);
-  const [cabNumber, setCabNumber] = useState({label: "Select Vehicle", value: -1, disabled: 'yes'});
-  const [timeSlot, setTimeSlot] = useState('');
-  const [cabRoute, setCabRoute] = useState([{...emptyCabRoute}]);
-  const options = cabNumberList.map((cab_no) => { return {value: [cab_no.id, cab_no.capacity] , label: cab_no.vehicle_number+" [ Capacity : "+cab_no.capacity+" ]" }});
+	const emptyCabRoute = { location: "", credit: "", sequence_id: "" };
+	const [cabRoute, setCabRoute] = useState([{ ...emptyCabRoute }]);
+	const [cabNumberList, setCabNumberList] = useState([]);
+	const [timeSlot, setTimeSlot] = useState("");
+	const [cabNumber, setCabNumber] = useState({
+		label: "Select Vehicle",
+		value: -1,
+		disabled: "yes"
+	});
 
-  const addLocation = () => {
-    setCabRoute([...cabRoute,{...emptyCabRoute}]);
-  }
-  // debugger
-  //Hook For Fetching Data Into CabNumberList
-  useEffect(() => {
-    fetch('http://172.60.1.137:3000/cabs',{
-      method: 'GET',
-      headers: {
-        'Accept': 'application/cab-tab.com; version=1'
-      }
-    })
-    .then((jsonResponse) => {
-    return jsonResponse.json();
-    })
-    .then((parsedResponse) => {
-    setCabNumberList([...parsedResponse.data]);
-    })
-    .catch((error)=>{
-    console.error("Error");
-    })
-  }, []);
-  
-  //Handler for Managing Chnages Select DropDown
-  const handleCabChange = (selectedOption) => {
-     setCabNumber(selectedOption)
-  }
+	const options = cabNumberList.map(cab_no => {
+		return {
+			value: [cab_no.id, cab_no.capacity],
+			label: cab_no.vehicle_number + " [ Capacity : " + cab_no.capacity + " ]"
+		};
+	});
 
-  //Handler for Managing Changes in Location and Credit Field
-  const handleRouteChange = (e) => {
-    const updatedRoutes = [...cabRoute];
-    updatedRoutes[e.target.dataset.idx][e.target.dataset.field] = e.target.value;
-    if (e.target.dataset.field === "location")
-    {
-      updatedRoutes[e.target.dataset.idx]['sequence_id'] = parseInt(e.target.dataset.idx) + 1 ;
-    }
-    setCabRoute(updatedRoutes);
-  };
-  
-  // Submit Event for Save Ride Button
-  const submit = () => {
-    const rides = {
-      cab_id: cabNumber.value[0],
-      time: timeSlot,
-      routes: cabRoute,
-      available_seats: cabNumber.value[1],
-    };
-    fetch('http://172.60.1.137:3000/cabs', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/cab-tab.com; version=1',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(rides),
-    }).then((response) => { console.log(); });
-  };
-  
-  // CustomStyle for Select Box Width
-  const customStyles = {
-  container: provided => ({
-    ...provided,
-    width: 300
-  })
-  };
+	const addLocation = () => {
+		setCabRoute([...cabRoute, { ...emptyCabRoute }]);
+	};
 
-  return (
-    <div>
-      <div className="card col-sm-8">
-        <div className="card__container" >
-          <div>
-            <h1 className="card__title">Add Ride for Passengers</h1>
-          </div>
-          <br />
-          <div className="row row-md-8 offset-md-2" >
-            <Label className="text_box_width" for="exampleCabNumber">Vehicle Number : </Label>
-            <InputGroup className="text_box_width" className="col-sm-6">
-              <Select 
-               styles={customStyles}
-               value={cabNumber}
-                onChange={handleCabChange}
-                options={options}
-              />
-            </InputGroup>
-          </div>
-          <br />
+	//Hook For Fetching Data Into CabNumberList
+	useEffect(() => {
+		fetch("http://172.60.1.137:3000/cabs", {
+			method: "GET",
+			headers: {
+				Accept: "application/cab-tab.com; version=1"
+			}
+		})
+			.then(jsonResponse => {
+				return jsonResponse.json();
+			})
+			.then(parsedResponse => {
+				setCabNumberList([...parsedResponse.data]);
+			})
+			.catch(error => {
+				console.error("Error");
+			});
+	}, []);
 
-          <div className="row row-md-8 offset-md-2">
-            <Label  className="text_box_width" for="exampleTimeSlot">Time Slot :  </Label>
-            <InputGroup className="text_box_width" className="col-sm-6">
-              <Input
-                placeholder="Enter Time Slot"
-                type="time"
-                name="time"
-                value={timeSlot}
-                onChange={(e) => setTimeSlot(e.target.value)}
-              />
-            </InputGroup>
-          </div>
-          <br />
+	//Handler for Managing Chnages Select DropDown
+	const handleCabChange = selectedOption => {
+		setCabNumber(selectedOption);
+	};
 
-          <div className="row" align="center">
-            <legend className="text-info">Set Route</legend>
-          </div>
-          <br />
-          {
-            cabRoute.map((val, idx) => (
-              <AddLocation
-                key={`cabRoute-${idx}`}
-                idx={idx}
-                cabRoute={cabRoute}
-                handleRouteChange={handleRouteChange}
-              /> )
-            )
-          }
-          <br />
-            <Button className="add__btn" className="col-md-2 offset-md-5" color="primary" size="sm" onClick={addLocation}>Add Location</Button>
-          <br />
-          <Button  color="success"  className="col-md-6  offset-md-3" size="sm" onClick={submit}>Save Ride</Button>
-          <br />
-        </div>
-      </div>
-    </div>
-  );
+	//Handler for Managing Changes in Location and Credit Field
+	const handleRouteChange = e => {
+		const updatedRoutes = [...cabRoute];
+		updatedRoutes[e.target.dataset.idx][e.target.dataset.field] =
+			e.target.value;
+		if (e.target.dataset.field === "location") {
+			updatedRoutes[e.target.dataset.idx]["sequence_id"] =
+				parseInt(e.target.dataset.idx) + 1;
+		}
+		setCabRoute(updatedRoutes);
+	};
+
+	// Submit Event for Save Ride Button
+	const submit = () => {
+		const rides = {
+			cab_id: cabNumber.value[0],
+			time: timeSlot,
+			routes: cabRoute,
+			available_seats: cabNumber.value[1]
+		};
+		fetch("http://172.60.1.137:3000/cabs", {
+			method: "POST",
+			headers: {
+				Accept: "application/cab-tab.com; version=1",
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(rides)
+		}).then(response => {
+			console.log();
+		});
+	};
+
+	return (
+		<Card className="App" style={{ width: "60%" }}>
+			<Row>
+				<Col sm="12" md={{ size: 12 }}>
+					<h2 style={{ color: "blue" }}>Add Ride To Organization</h2>
+				</Col>
+			</Row>
+			<br />
+			<Form className="form">
+				<Row>
+					<Col sm="6" md={{ size: 4 }}>
+						<Label>Vehicle Number :</Label>
+					</Col>
+					<Col sm="12" md={{ size: 6 }}>
+						<Select
+							value={cabNumber}
+							onChange={handleCabChange}
+							options={options}
+						/>
+					</Col>
+				</Row>
+				<br />
+				<Row>
+					<Col sm="6" md={{ size: 4 }}>
+						<Label>Time Slot :</Label>
+					</Col>
+					<Col sm="12" md={{ size: 6 }}>
+						<Input
+							type="time"
+							name="time"
+							value={timeSlot}
+							onChange={e => setTimeSlot(e.target.value)}
+							placeholder="Enter Cab Capacity"
+						/>
+					</Col>
+				</Row>
+				<br />
+				<Row>
+					<Col sm="12" md={{ size: 12 }}>
+						<legend className="text-info">Set Route</legend>
+					</Col>
+				</Row>
+				{cabRoute.map((val, idx) => (
+					<AddLocation
+						key={`cabRoute-${idx}`}
+						idx={idx}
+						cabRoute={cabRoute}
+						handleRouteChange={handleRouteChange}
+					/>
+				))}
+				<Row>
+					<Col>
+						<Button color="primary" onClick={addLocation}>
+							Add Location
+						</Button>
+					</Col>
+				</Row>
+				<br />
+				<Row>
+					<Col>
+						<Button style={{ width: 300 }} color="success" onClick={submit}>
+							Save Ride
+						</Button>
+					</Col>
+				</Row>
+
+				<br />
+			</Form>
+		</Card>
+	);
 }
 
 export default AddRide;
