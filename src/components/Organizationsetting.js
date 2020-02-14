@@ -4,6 +4,7 @@
  import './component.css';
  
   function OrganizationSettings(){
+    
     const [ValueOfCredit, setValueOfCredit] = useState('');
     const [Maxyeild, setMaxyeild] = useState('');
     const [serviceType, setServiceType] = useState('fixed');
@@ -16,7 +17,7 @@
         service_type: serviceType,
         cost_type: costType,
       };
-
+      debugger
       fetch(`http://josh.localhost:3000/`,
       {
         method: 'POST',
@@ -28,13 +29,13 @@
         body: JSON.stringify(organization_set)
       }).then((jsonResponse) => {
         console.log(jsonResponse);
-        return jsonResponse.json();
+         return jsonResponse.json();
         }).then((parsedResponse) => {
-          console.log({parsedResponse});
-          setValueOfCredit([...parsedResponse]);
-          }).catch((error)=>{
+        console.log({parsedResponse});
+        setValueOfCredit([...parsedResponse]);
+        }).catch((error)=>{
         console.error("Error");
-        });
+      });
     }
   return(
     <div>
@@ -55,7 +56,6 @@
               />
             </InputGroup>
             <br />
-
             <InputGroup className="col-sm-6">
               <Input
                 placeholder="No. of Maximum Yeild"
@@ -66,10 +66,9 @@
               />
             </InputGroup>
           </div >
-            <br />
+          <br />
           <div className="row" > 
             <InputGroup className="col-sm-6">
-
               <div className="row">
               <FormGroup check sm={6}>
               <Label check>
@@ -90,7 +89,7 @@
           </div>
           
           <br/>
-            <div className="row"> 
+          <div className="row"> 
             <InputGroup className="col-sm-6">
               <div className="row">
               <FormGroup check sm={6}>
@@ -113,8 +112,9 @@
 
           
           <div className="row">
-          <Button className="add__btn" color="success" size="sm" >Add Cab</Button>
-          <Button className="add__btn" color="success" size="sm" >Add Ride</Button>
+          
+          <Button className="add__btn" color="success" onClick={signup}size="sm" >Add Cab</Button>
+          <Button className="add__btn" color="success" onClick={signup}size="sm" >Add Ride</Button>
           <br/>
             </div>
             <br />  
@@ -123,7 +123,6 @@
            </div>
         </div>    
       </div>  
-        
     );
 }
 export default OrganizationSettings;
