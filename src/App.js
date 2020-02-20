@@ -1,46 +1,47 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Switch,Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route } from 'react-router-dom';
 // import OrganizationSettings from './components/Organizationsetting';
-// import FetchRides from './components/addRide';
-// import AddSideBar from './components/Sidebar';
-// import AddNavBar from './components/Navbar';
-import Hello1 from './components/Hello';
+import FetchRides from './components/addRide';
+import AddSideBar from './components/Sidebar';
+import AddNavBar from './components/Navbar';
 import Login from './components/login';
-import { Button } from 'reactstrap';
-
-// const App = () => {
-//   return (
-//     <Router>
-//       <AddNavBar />
-      
-//       <Route path='/home'>
-//         <Hello1 />
-//       </Route>
-
-//       <Route path ='/ride'>
-//         <FetchRides />
-//       </Route>
-    
-//       <Route path="/credit">
-//         <FetchRides />
-//       </Route>
-
-//       <Route path="/settings">
-//         <OrganizationSettings />
-//       </Route>
-//     </Router>
-
-//   );
-// }
+import UserProfile from './components/UserProfile'
 
 const App = () => {
+  return (
+    <Router >
+     <Route path ='/login'>
+        <Login />
+      </Route>
+       <Route path ='/dashboard'>
+        <AddNavBar />
+      </Route>
+       <Route path ='/user/14'>
+        <UserProfile />
+      </Route>
+      <Route path ='/ride'>
+        <FetchRides />
+      </Route>
+    </Router>
 
-return(
-  <>
-  <Login/>
-  </>
   );
-
 }
+
+// const App = () => {
+
+// return(
+//   <>
+//    <Login/>
+//     <UserProfile/>
+//    // <Router>
+      
+//    //    <Route path='http://josh.localhost:3001'>
+//    //      <Login/>
+//    //    </Route>
+//    //   </Router>
+//   </> 
+//   );
+
+// }
 export default React.memo(App);
