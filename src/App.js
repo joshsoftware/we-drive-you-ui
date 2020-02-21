@@ -31,6 +31,7 @@ const App = () => {
         <FetchRides />
       </Route>
     </Router>
+  );
 
   );
 }
