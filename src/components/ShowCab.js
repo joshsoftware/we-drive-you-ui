@@ -5,13 +5,14 @@ import EditCab from './EditCab.js';
 const ShowCab = () => {
     const [list, setList]=useState([])
     useEffect(() => {
-        fetch ('http://josh.localhost:3001/cabs', {
+        fetch ('http://tesla.localhost:3000/cabs', {
             method: 'GET', 
             headers: {
-                Accept: 'application/cab-tab.com; version=1',
-                'Content-Type': 'application/json',
-                'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2LCJleHAiOjE1ODE5NzMwMzN9.KP8WHv5ltldJbbiQmZRPRM4AiDFpEKMmR_ff9Q2ukLY'
-        }})
+				Accept: "application/cab-tab.com; version=1",
+				"Access-Control-Allow-Origin": "http://tesla.localhost:3001",
+				Authorization:
+					"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1ODIzNTIyNTl9.MHLKEjhEen02JYU_QwUqywOdaKgqKzw07HkazkorxLQ"
+			}})
         .then((response) => response.json())
         .then((response) => setList(response.data.data))
     }, [])

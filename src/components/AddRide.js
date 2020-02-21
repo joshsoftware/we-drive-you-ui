@@ -25,8 +25,8 @@ function AddRide() {
 	//Fetching Cab List in options variable
 	const options = cabNumberList.map(cab_no => {
 		return {
-			value: [cab_no.id, cab_no.capacity],
-			label: cab_no.vehicle_number + " [ Capacity : " + cab_no.capacity + " ]"
+			value: [cab_no.attributes.id, cab_no.attributes.capacity],
+			label: cab_no.attributes.vehicle_number + " [ Capacity : " + cab_no.attributes.capacity + " ]"
 		};
 	});
 
@@ -36,17 +36,20 @@ function AddRide() {
 
 	//Hook For Fetching Data Into CabNumberList
 	useEffect(() => {
-		fetch("http://172.60.1.137:3000/cabs", {
+		fetch("http://tesla.localhost:3000/cabs", {
 			method: "GET",
 			headers: {
-				Accept: "application/cab-tab.com; version=1"
+				Accept: "application/cab-tab.com; version=1",
+				"Access-Control-Allow-Origin": "http://tesla.localhost:3001",
+				Authorization:
+					"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1ODIzMDE4MTh9.Vu0zgkRXfyhIslcLhYSQs6h3X8sxx_cQ7mQTQt9tfng"
 			}
 		})
 			.then(jsonResponse => {
 				return jsonResponse.json();
 			})
 			.then(parsedResponse => {
-				setCabNumberList([...parsedResponse.data]);
+				setCabNumberList(parsedResponse.data.data);
 			})
 			.catch(error => {
 				console.error("Error");
@@ -72,22 +75,30 @@ function AddRide() {
 
 	// Submit Event for Save Ride Button
 	const submit = () => {
-		const rides = {
+		const ride = {
 			cab_id: cabNumber.value[0],
 			time: timeSlot,
-			routes: cabRoute,
+			hops_attributes: cabRoute,
 			available_seats: cabNumber.value[1]
 		};
-		fetch("http://172.60.1.137:3000/cabs", {
+		console.log(ride);
+		fetch("http://tesla.localhost:3000/rides", {
 			method: "POST",
 			headers: {
 				Accept: "application/cab-tab.com; version=1",
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
+				"Access-Control-Allow-Origin": "http://tesla.localhost:3001",
+				Authorization:
+					"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1ODIzNTIyNTl9.MHLKEjhEen02JYU_QwUqywOdaKgqKzw07HkazkorxLQeyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1ODIzNTIyNTl9.MHLKEjhEen02JYU_QwUqywOdaKgqKzw07HkazkorxLQ"
 			},
-			body: JSON.stringify(rides)
+			body: JSON.stringify({ride})
 		}).then(response => {
-			console.log();
-		});
+			console.log(response);
+      return response.json();
+    })
+    .then(ParsedResponse => {
+      alert(ParsedResponse.message);
+    });
 	};
 
 	return (
