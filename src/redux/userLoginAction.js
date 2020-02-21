@@ -21,8 +21,8 @@ const userLoginAction = (user, dispatch) => fetch(`${sub()}.localhost:3000/sessi
     else return resp.json();
   })
   .then((data) => {
-    console.log(data);
-    localStorage.setItem('user_id', data.data.current_user.data.id)
+    localStorage.setItem('role', data.data.current_user.data.attributes.role);
+    localStorage.setItem('user_id', data.data.current_user.data.id);
     localStorage.setItem('token', data.data.auth_token);
     // localStorage.setItem('role', data.data.current_user.);
     dispatch(loginUser(data.user));

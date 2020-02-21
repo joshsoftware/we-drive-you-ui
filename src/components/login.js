@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, InputGroup, Input } from 'reactstrap';
+import { Button, InputGroup, Input, Card, Form, Row, Col, Label } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import './component.css';
-import { BrowserRouter as Redirect } from 'react-router-dom';
+// import { BrowserRouter as Redirect } from 'react-router-dom';
 import userLoginAction from '../redux/userLoginAction';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
-  const [status, setStatus] = useState('');
+  // const [status, setStatus] = useState('');
   const [EmailId, setEmailId] = useState('');
   const [Password, setPassword] = useState('');
   let User = {};
   const dispatch = useDispatch();
+  const history = useHistory();
   const submit = () => {
     User = {
       login: {
@@ -21,11 +23,9 @@ function Login() {
     };
     userLoginAction(User, dispatch);
 
-    if (localStorage.getItem('token')) setStatus(true);
+    if (localStorage.getItem('token'))
+       return history.push("/dashboard");
   };
-
-
-  if (status) return <Redirect from='/login' to="/dashboard" />;
 
   return (
     <div>
@@ -39,7 +39,7 @@ function Login() {
               placeholder="email"
               type="email"
               name="email_id"
-              value={EmailId}
+              defaultValue={EmailId}
               onChange={(e) => setEmailId(e.target.value)}
             />
           </InputGroup>
@@ -49,7 +49,7 @@ function Login() {
               placeholder="password"
               type="password"
               name="password"
-              value={Password}
+              defaultValue={Password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </InputGroup>
@@ -61,7 +61,7 @@ function Login() {
           </div>
           <br />
           <div>
-            <a className="link" href="youtube.com">Create new account</a>
+            <a className="link" href="/signup">Create new account</a>
           </div>
           <br />
         </div>

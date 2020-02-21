@@ -8,13 +8,10 @@ import sub from './subdomain';
 
 function UserShow() {
   const [user, setUser] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [emailId, setEmailId] = useState('');
-  const [contactNo, setContactNo] = useState('');
 
-  useEffect(()=>{
-    fetch(sub()+'.localhost:3000/users/'+localStorage.getItem('user_id'), {
+  useEffect(() => {
+    console.log(localStorage.getItem('user_id'));
+    fetch(`${sub()}.localhost:3000/users/${localStorage.getItem('user_id')}`, {
       method: 'GET',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
@@ -30,35 +27,23 @@ function UserShow() {
       .then((resp) => {
         console.log(resp.data.data.attributes);
         setUser(resp.data.data.attributes);
-        setFirstName(user.first_name);
-        setLastName(user.last_name);
-        setEmailId(user.email_id);
-        setContactNo(user.contact_no);
+
       // dispatch(loginUser(data.user));
       })
       .catch((error) => {
         console.log(`error: ${error}`);
       });
-  });
+  }, []);
 
   const update = () => {
-    const User = {
-      user: {
-        first_name: firstName,
-        last_name: lastName,
-        email_id: emailId,
-        contact_no: contactNo,
-      },
-    };
-
-    fetch(sub()+'.localhost:3000/users/14', {
+    fetch(`${sub()}.localhost:3000/users/${localStorage.getItem('user_id')}`, {
       method: 'PATCH',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
         'Content-Type': 'application/json',
         Authorization: localStorage.getItem('token'),
       },
-      body: JSON.stringify(User),
+      body: JSON.stringify(user),
     })
       .then((resp) => {
         console.log(resp);
@@ -73,6 +58,15 @@ function UserShow() {
       });
   };
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const {
+    first_name, last_name, email_id, contact_no,
+  } = user;
+
   return (
     <Card style={{ width: '50%' }}>
 
@@ -86,8 +80,8 @@ function UserShow() {
             <Input
               type="text"
               name="first_name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              defaultValue={first_name}
+              onChange={handleInputChange}
             />
           </Col>
         </Row>
@@ -100,8 +94,8 @@ function UserShow() {
             <Input
               type="text"
               name="last_name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              defaultValue={last_name}
+              onChange={handleInputChange}
             />
           </Col>
         </Row>
@@ -114,8 +108,8 @@ function UserShow() {
             <Input
               type="email"
               name="email_id"
-              value={emailId}
-              onChange={(e) => setEmailId(e.target.value)}
+              defaultValue={email_id}
+              onChange={handleInputChange}
             />
           </Col>
         </Row>
@@ -128,8 +122,8 @@ function UserShow() {
             <Input
               type="number"
               name="contact_no"
-              value={contactNo}
-              onChange={(e) => setContactNo(e.target.value)}
+              defaultValue={contact_no}
+              onChange={handleInputChange}
             />
           </Col>
         </Row>
