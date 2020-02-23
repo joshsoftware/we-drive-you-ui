@@ -30,6 +30,7 @@ function AddRide() {
 		};
 	});
 
+	console.log("oasakmakls",options)
 	const addLocation = () => {
 		setCabRoute([...cabRoute, { ...emptyCabRoute }]);
 	};
@@ -89,7 +90,7 @@ function AddRide() {
 				"Content-Type": "application/json",
 				"Access-Control-Allow-Origin": "http://tesla.localhost:3001",
 				Authorization:
-					"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1ODIzNTIyNTl9.MHLKEjhEen02JYU_QwUqywOdaKgqKzw07HkazkorxLQeyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1ODIzNTIyNTl9.MHLKEjhEen02JYU_QwUqywOdaKgqKzw07HkazkorxLQ"
+					"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1ODI0NTAzMzZ9.zvIfL8bHecIIcAVSkXQibx4edL-q_MYw_7dT8vO7N0g"
 			},
 			body: JSON.stringify({ride})
 		}).then(response => {
@@ -129,7 +130,7 @@ function AddRide() {
 					</Col>
 					<Col sm="12" md={{ size: 6 }}>
 						<Input
-							type="time"
+							type="datetime-local"
 							name="time"
 							value={timeSlot}
 							onChange={e => setTimeSlot(e.target.value)}
