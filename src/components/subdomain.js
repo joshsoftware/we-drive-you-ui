@@ -1,8 +1,8 @@
-const sub = () =>{
+const sub = () => {
   const url = window.location.href;
   const parts = url.split('.');
-  const sub = parts[0];
-  return sub
-}
+  const subdomain = parts[0];
+  return subdomain;
+};
 
 export default sub;

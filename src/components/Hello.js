@@ -1,10 +1,9 @@
- import React, { useState } from 'react';
+import React from 'react';
 
-function Hello1(){
-  
-  return(
-<h1>devyani</h1>
-    );
+function Hello() {
+  return (
+    <h1>WELCOME TO CAB TAB</h1>
+  );
 }
 
-export default Hello1;
+export default Hello;

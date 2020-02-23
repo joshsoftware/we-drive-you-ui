@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, InputGroup, Input, Card, Form, Row, Col, Label } from 'reactstrap';
+import {
+  Button, InputGroup, Input,
+} from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import './component.css';
 // import { BrowserRouter as Redirect } from 'react-router-dom';
-import userLoginAction from '../redux/userLoginAction';
 import { useHistory } from 'react-router-dom';
+import userLoginAction from '../redux/userLoginAction';
 
 function Login() {
   // const [status, setStatus] = useState('');
@@ -21,10 +23,10 @@ function Login() {
         password: Password,
       },
     };
+     console.log(User)
     userLoginAction(User, dispatch);
 
-    if (localStorage.getItem('token'))
-       return history.push("/dashboard");
+    if (localStorage.getItem('token')) return history.push('/dashboard');
   };
 
   return (
@@ -61,7 +63,7 @@ function Login() {
           </div>
           <br />
           <div>
-            <a className="link" href="/signup">Create new account</a>
+            <a className="link" href="/usersignup">Create new account</a>
           </div>
           <br />
         </div>

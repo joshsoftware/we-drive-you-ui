@@ -6,11 +6,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import sub from './subdomain';
 
+
 function UserShow() {
   const [user, setUser] = useState('');
 
   useEffect(() => {
-    console.log(localStorage.getItem('user_id'));
     fetch(`${sub()}.localhost:3000/users/${localStorage.getItem('user_id')}`, {
       method: 'GET',
       headers: {
@@ -27,7 +27,7 @@ function UserShow() {
       .then((resp) => {
         console.log(resp.data.data.attributes);
         setUser(resp.data.data.attributes);
-
+        alert(resp.message);
       // dispatch(loginUser(data.user));
       })
       .catch((error) => {
@@ -51,7 +51,7 @@ function UserShow() {
         else return resp.json();
       })
       .then((data) => {
-        console.log(data.message);
+        alert(data.message);
       })
       .catch((error) => {
         console.log(`error: ${error}`);
@@ -68,7 +68,7 @@ function UserShow() {
   } = user;
 
   return (
-    <Card style={{ width: '50%' }}>
+    <Card  style={{ width: '50%' }}>
 
       <br />
       <Form className="form">
@@ -131,7 +131,7 @@ function UserShow() {
         <Row>
           <Col md={{ offset: 5 }}>
             <Button color="success" size="md" onClick={update}>
-              Edit
+              Update
             </Button>
           </Col>
         </Row>

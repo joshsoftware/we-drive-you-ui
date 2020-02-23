@@ -4,6 +4,9 @@ import '../App.css';
 import {
   Button, Card, Form, Row, Col, Label, Input,
 } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
+import sub from './subdomain';
+
 // import Select from 'react-select'
 // import { AvForm, AvField } from 'availity-reactstrap-validation';
 
@@ -21,7 +24,7 @@ function UserSignup() {
   const [address2, setAddress2] = useState('');
   const [country, setCountry] = useState('');
   const [inviteCode, setInviteCode] = useState('');
-
+  const history = useHistory();
   const submit = () => {
     const user = {
       user: {
@@ -49,7 +52,7 @@ function UserSignup() {
     console.log(user);
     console.log(JSON.stringify(user));
 
-    fetch('http://josh.localhost:4000/users', {
+    fetch(`${sub()}.localhost:3000/users`, {
       method: 'POST',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
@@ -57,17 +60,20 @@ function UserSignup() {
       },
       body: JSON.stringify(user),
     })
-    .then((resp) => {
+      .then((resp) => {
         console.log(resp);
         if (!resp.ok) throw new Error(resp.status);
         else return resp.json();
       })
       .then((data) => {
         console.log(data.message);
+        alert(data.message);
       })
       .catch((error) => {
         console.log(`error: ${error}`);
       });
+
+    return history.push('/login');
   };
 
   return (
@@ -227,7 +233,7 @@ function UserSignup() {
         </Row>
         <br />
         <Button color="success" size="md" onClick={submit}>
-         Signup
+          Signup
         </Button>
       </Form>
     </Card>

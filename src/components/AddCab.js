@@ -1,48 +1,49 @@
-import React, { useState } from "react";
-import { Card, Form, Row, Col, Button, Label, Input } from "reactstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./component.css";
+import React, { useState } from 'react';
+import {
+  Card, Form, Row, Col, Button, Label, Input,
+} from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './component.css';
+import sub from './subdomain';
 
 function AddCab() {
   const emptyCabElements = {
-    cab_no: "",
-    min_passenger_req: "",
-    cab_capacity: ""
+    cab_no: '',
+    min_passenger_req: '',
+    cab_capacity: '',
   };
   const [cabElements, setCabElements] = useState({ ...emptyCabElements });
 
-  const handleCabElementChange = evt => {
-    const value = evt.target.value;
+  const handleCabElementChange = (evt) => {
+    const { value } = evt.target;
     setCabElements({ ...cabElements, [evt.target.name]: value });
   };
 
-  //Submit Event for Add Cab Button
   const submit = () => {
     const cab = {
       vehicle_number: cabElements.cab_no,
       capacity: cabElements.cab_capacity,
-      min_passengers: cabElements.min_passenger_req
+      min_passengers: cabElements.min_passenger_req,
     };
-    fetch("http://slug.localhost:3000/cabs", {
-      method: "POST",
+    fetch(`${sub()}.localhost:3000/cabs`, {
+      method: 'POST',
       headers: {
-        Accept: "application/cab-tab.com; version=1",
-        "Content-Type": "application/json"
+        Accept: 'application/cab-tab.com; version=1',
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
       },
-      body: JSON.stringify({cab})
-    }).then(response => {
-      return response.json;
-    })
-    .then(ParsedResponse => {
-      alert(ParsedResponse.message);
-    });
+      body: JSON.stringify({ cab }),
+    }).then((response) => response.json)
+      .then((ParsedResponse) => {
+        alert(ParsedResponse.message);
+      });
   };
 
   return (
-    <Card className="App" style={{ width: "50%" }}>
+    <Card className="App" style={{ width: '50%' }}>
       <Row>
         <Col sm="12" md={{ size: 12 }}>
-          <h2 style={{ color: "blue" }}>Add Cab To Organization</h2>
+          <h2 style={{ color: 'blue' }}>Add Cab To Organization</h2>
         </Col>
       </Row>
       <br />

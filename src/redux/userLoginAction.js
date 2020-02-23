@@ -24,6 +24,7 @@ const userLoginAction = (user, dispatch) => fetch(`${sub()}.localhost:3000/sessi
     localStorage.setItem('role', data.data.current_user.data.attributes.role);
     localStorage.setItem('user_id', data.data.current_user.data.id);
     localStorage.setItem('token', data.data.auth_token);
+    alert(data.message);
     // localStorage.setItem('role', data.data.current_user.);
     dispatch(loginUser(data.user));
   })
