@@ -27,7 +27,6 @@ function UserShow() {
       .then((resp) => {
         console.log(resp.data.data.attributes);
         setUser(resp.data.data.attributes);
-        alert(resp.message);
       // dispatch(loginUser(data.user));
       })
       .catch((error) => {

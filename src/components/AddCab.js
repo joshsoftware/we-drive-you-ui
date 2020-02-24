@@ -35,7 +35,8 @@ function AddCab() {
       body: JSON.stringify({ cab }),
     }).then((response) => response.json)
       .then((ParsedResponse) => {
-        alert(ParsedResponse.message);
+        // console.log(ParsedResponse)
+        // alert(ParsedResponse.message);
       });
   };
 

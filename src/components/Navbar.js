@@ -3,7 +3,7 @@ import logo from '../images/logo1.png';
 
 const AddNavBar = () => {
   const user = `/users/${localStorage.getItem('user_id')}`;
-  if (localStorage.getItem('role') === 'passanger') {
+  if (localStorage.getItem('role') === 'passenger') {
     return (
       <>
         <h1 align="center">CAB TAB</h1>
@@ -33,7 +33,7 @@ const AddNavBar = () => {
               </li>
 
               <li className="nav-item">
-                <a className="nav-link text-white tet-uppercas ml-3" href="/ride">
+                <a className="nav-link text-white tet-uppercas ml-3" href="/rides">
                   Ride
                 </a>
               </li>
@@ -107,6 +107,12 @@ const AddNavBar = () => {
               <li className="nav-item">
                 <a className="nav-link text-white tet-uppercase ml-3" href="/help">
                   Help
+                </a>
+              </li>
+
+                <li className="nav-item">
+                <a className="nav-link text-white tet-uppercase ml-3" href="/login">
+                  Logout
                 </a>
               </li>
 

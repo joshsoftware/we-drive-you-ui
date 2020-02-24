@@ -35,7 +35,7 @@ function OrganizationSetting() {
 
   const edit = () => {
     console.log('i am edit function');
-    fetch(`${sub()}.172.30.1.203:4000/organization_settings`, {
+    fetch(`${sub()}.localhost:3000/organization_settings`, {
       method: 'GET',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
@@ -67,7 +67,7 @@ function OrganizationSetting() {
       cost_type: organizationSetting.costType,
     };
 
-    fetch(`${sub()}.172.30.1.203:4000/organization_settings/`, {
+    fetch(`${sub()}.localhost:3000/organization_settings/`, {
       method: 'PATCH',
       headers: {
         Accept: 'application/vnd.cab-tab.com; version=1',

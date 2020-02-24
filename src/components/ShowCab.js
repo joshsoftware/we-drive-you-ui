@@ -10,7 +10,7 @@ const ShowCab = () => {
       method: 'GET',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
-        'Access-Control-Allow-Origin': 'http://tesla.localhost:3001',
+        'Content-Type': 'application/json',
         Authorization: localStorage.getItem('token'),
       },
     })

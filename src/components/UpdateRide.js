@@ -35,7 +35,7 @@ function UpdateRide({ record }) {
 
   // Hook For Fetching Data Into CabNumberList
   useEffect(() => {
-    fetch(`${sub()}.localhost:3000/cabs`, {
+    fetch(`${sub()}.192.168.1.168:3000/cabs`, {
       method: 'GET',
       headers: {
         Accept: 'application/cab-tab.com; version=1',
